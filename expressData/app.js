@@ -1,3 +1,4 @@
+require("dotenv").config(); //
 const express = require("express");
 const router = require("./router");
 const connection = require("../expressData/config/mysql");
@@ -8,7 +9,8 @@ app.use("/", router);
 app.get("/", (req, res) => {
   res.send("welcome to TODO");
 });
-const portNo = 4000;
+//const portNo = 4000;
+const portNo = process.env.PORT;
 app.listen(portNo, () => {
   console.log("listening to port no 4000");
 });

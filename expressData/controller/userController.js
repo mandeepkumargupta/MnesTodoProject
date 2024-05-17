@@ -1,7 +1,8 @@
 const userRepository = require("../repositories/userRepository");
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
-const secretKey = "mySecretKey";
+//const secretKey = "mySecretKey";
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 exports.registerUser = async (req, res) => {
@@ -65,7 +66,9 @@ exports.loginUser = async (req, res) => {
     if (comp) {
       // Need to generate a jwt token with a payload of userId
       const tokenPayLoad = { uuid: uuidv4() };
-      const token = jwt.sign(tokenPayLoad, secretKey);
+      // const token = jwt.sign(tokenPayLoad, secretKey);
+      const token = jwt.sign(tokenPayLoad, process.env.JWT_SECRET);
+
       return res.status(200).json({
         status: 200,
         message: "Login successful",
